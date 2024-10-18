@@ -26,6 +26,10 @@ class User(db.Model):
     allergies=db.Column(db.String(120), unique=False, nullable=True)
     blood_type=db.Column(db.String(120), unique=False, nullable=True)
     hobbies=db.Column(db.String(300),unique=False, nullable=True)
+    city=db.Column(db.String(120), unique=False, nullable=True)
+    state=db.Column(db.String(120), unique=False, nullable=True)
+    zipcode=db.Column(db.String(120), unique=False, nullable=True)
+    language=db.Column(db.String(120), unique=False, nullable=True)
     is_active =db.Column(db.Boolean(), unique=False, nullable=True)
     is_current =db.Column(db.Boolean(), unique=False, nullable=True)
 
@@ -53,6 +57,10 @@ class User(db.Model):
             "allergies": self.allergies,
             "blood_type": self.blood_type,
             "hobbies": self.hobbies,
+            "city": self.city,
+            "state": self.state,
+            "zipcode": self.zipcode,
+            "language": self.language,
             "is_active": self.is_active,
             "is_current": self.is_current, 
             # do not serialize the password, it's a security breach

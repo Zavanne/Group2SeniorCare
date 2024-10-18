@@ -27,8 +27,12 @@ def signup_user():
     date_of_birth = data.get('date_of_birth')  
     email = data.get('email')
     password = data.get('password')
-    if not name or not date_of_birth or not email or not password:
-        return jsonify({'error': 'Name, Date of Birth, Email, and Password are required'}), 400
+    city = data.get('city')
+    state = data.get('state')
+    zipcode = data.get('zipcode')
+    language = data.get('language')
+    if not name or not date_of_birth or not email or not password or not city or not state or not zipcode or not language:
+        return jsonify({'error': 'Name, Date of Birth, Email, Password, City, State, Zipcode and Language are required'}), 400
 
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
@@ -38,6 +42,10 @@ def signup_user():
         date_of_birth=date_of_birth,
         email=email,
         password=password,
+        city = city,
+        state = state,
+        zipcode = zipcode,
+        language = language,
         # is_active=True 
     )
 

@@ -13,6 +13,10 @@ export const UserProfile = ({refresh}) => {
         allergies: store.patient?.allergies || "",
         blood_type: store.patient?.blood_type || "",
         hobbies: store.patient?.hobbies || "",
+        city: store.patient?.city || "",
+        state: store.patient?.state || "",
+        zipcode: store.patient?.zipcode || "",
+        language: store.patient?.language || "",
         
     });
 
@@ -40,7 +44,11 @@ export const UserProfile = ({refresh}) => {
             blood_type: store.patient?.blood_type || "",
             hobbies: store.patient?.hobbies || "",
             is_active: store.patient?.is_active || false,
-            is_current: store.patient?.is_current || false
+            is_current: store.patient?.is_current || false,
+            city: store.patient?.city || "",
+            state: store.patient?.state || "",
+            zipcode: store.patient?.zipcode || "",
+            language: store.patient?.language || "",
         })
 
     }
@@ -56,7 +64,11 @@ export const UserProfile = ({refresh}) => {
             blood_type: store.patient?.blood_type || "",
             hobbies: store.patient?.hobbies || "",
             is_active: store.patient?.is_active || false,
-            is_current: store.patient?.is_current || false
+            is_current: store.patient?.is_current || false,
+            city: store.patient?.city || "",
+            state: store.patient?.state || "",
+            zipcode: store.patient?.zipcode || "",
+            language: store.patient?.language || "",
         })
 
     },[refresh])
@@ -157,6 +169,47 @@ export const UserProfile = ({refresh}) => {
                             />
                         </p>
                    
+                        <p>
+                            City:{" "}
+                            <input
+                                type="text"
+                                name="city"
+                                placeholder={store.patient?.city}
+                                value={formData.city}
+                                onChange={handleInputChange}
+                            />
+                        </p>
+                        <p>
+                            State:{" "}
+                            <input
+                                type="text"
+                                name="state"
+                                placeholder={store.patient?.state}
+                                value={formData.state}
+                                onChange={handleInputChange}
+                            />
+                        </p>
+                        <p>
+                            Zipcode:{" "}
+                            <input
+                                type="text"
+                                name="zipcode"
+                                placeholder={store.patient?.zipcode}
+                                value={formData.zipcode}
+                                onChange={handleInputChange}
+                            />
+                        </p>
+                        <p>
+                            Language:{" "}
+                            <input
+                                type="text"
+                                name="language"
+                                placeholder={store.patient?.language}
+                                value={formData.language}
+                                onChange={handleInputChange}
+                            />
+                        </p>
+                   
                   
 
                     <div className="d-flex justify-content-end">
@@ -189,6 +242,10 @@ export const UserProfile = ({refresh}) => {
                     {store.patient?.allergies && <p>Allergies: {store.patient.allergies}</p>}
                     {store.patient?.blood_type && <p>Blood Type: {store.patient.blood_type}</p>}
                     {store.patient?.hobbies && <p>Hobbies: {store.patient.hobbies}</p>}
+                    {store.patient?.city && <p>City: {store.patient.city}</p>}
+                    {store.patient?.state && <p>State: {store.patient.state}</p>}
+                    {store.patient?.zipcode && <p>Zipcode: {store.patient.zipcode}</p>}
+                    {store.patient?.language && <p>Language: {store.patient.language}</p>}
                     {store.patient?.is_active !== undefined && (
                         <p>Active: {store.patient.is_active ? "Yes" : "No"}</p>
                     )}
@@ -200,3 +257,4 @@ export const UserProfile = ({refresh}) => {
         </div>
     );
 };
+
