@@ -116,6 +116,10 @@ def edit_user():
     user.hobbies = data.get('hobbies', user.hobbies)
     user.is_active = data.get('is_active', user.is_active)
     user.is_current = data.get('is_current', user.is_current)
+    user.city = data.get('city', user.city)
+    user.state = data.get('state', user.state)
+    user.zipcode = data.get('zipcode', user.zipcode)
+    user.language = data.get('language', user.language)
 
     try:
         # Commit the changes to the database
