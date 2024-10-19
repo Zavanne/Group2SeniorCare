@@ -1,7 +1,7 @@
-import React, { useContext, useState,useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext";
 
-export const UserProfile = ({refresh}) => {
+export const UserProfile = ({ refresh }) => {
     const { store, actions } = useContext(Context);
     const [editMode, setEditMode] = useState(false);
     const [formData, setFormData] = useState({
@@ -13,7 +13,11 @@ export const UserProfile = ({refresh}) => {
         allergies: store.patient?.allergies || "",
         blood_type: store.patient?.blood_type || "",
         hobbies: store.patient?.hobbies || "",
-        
+        city: store.patient?.city || "",
+        state: store.patient?.state || "",
+        zipcode: store.patient?.zipcode || "",
+        language: store.patient?.language || "",
+
     });
 
     const handleInputChange = (e) => {
@@ -39,13 +43,18 @@ export const UserProfile = ({refresh}) => {
             allergies: store.patient?.allergies || "",
             blood_type: store.patient?.blood_type || "",
             hobbies: store.patient?.hobbies || "",
+            city: store.patient?.city || "",
+            state: store.patient?.state || "",
+            zipcode: store.patient?.zipcode || "",
+            language: store.patient?.language || "",
             is_active: store.patient?.is_active || false,
-            is_current: store.patient?.is_current || false
+            is_current: store.patient?.is_current || false,
+
         })
 
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         setFormData({
             name: store.patient?.name || "",
             date_of_birth: store.patient?.date_of_birth || "",
@@ -55,11 +64,16 @@ export const UserProfile = ({refresh}) => {
             allergies: store.patient?.allergies || "",
             blood_type: store.patient?.blood_type || "",
             hobbies: store.patient?.hobbies || "",
+            city: store.patient?.city || "",
+            state: store.patient?.state || "",
+            zipcode: store.patient?.zipcode || "",
+            language: store.patient?.language || "",
             is_active: store.patient?.is_active || false,
-            is_current: store.patient?.is_current || false
+            is_current: store.patient?.is_current || false,
+
         })
 
-    },[refresh])
+    }, [refresh])
     return (
         <div>
 
@@ -97,67 +111,108 @@ export const UserProfile = ({refresh}) => {
                             onChange={handleInputChange}
                         />
                     </p>
-                  
-                        <p>
-                            Phone:{" "}
-                            <input
-                                type="text"
-                                name="phone"
-                                placeholder={store.patient?.phone}
-                                value={formData.phone}
-                                onChange={handleInputChange}
-                            />
-                        </p>
-                
-                 
-                        <p>
-                            Emergency Contact:{" "}
-                            <input
-                                type="text"
-                                name="emergency_contact"
-                                placeholder={store.patient?.emergency_contact}
-                                value={formData.emergency_contact}
-                                onChange={handleInputChange}
-                            />
-                        </p>
-                  
-                 
-                        <p>
-                            Allergies:{" "}
-                            <input
-                                type="text"
-                                name="allergies"
-                                placeholder={store.patient?.allergies}
-                                value={formData.allergies}
-                                onChange={handleInputChange}
-                            />
-                        </p>
-                 
-                   
-                        <p>
-                            Blood Type:{" "}
-                            <input
-                                type="text"
-                                name="blood_type"
-                                placeholder={store.patient?.blood_type}
-                                value={formData.blood_type}
-                                onChange={handleInputChange}
-                            />
-                        </p>
-                
-                   
-                        <p>
-                            Hobbies:{" "}
-                            <input
-                                type="text"
-                                name="hobbies"
-                                placeholder={store.patient?.hobbies}
-                                value={formData.hobbies}
-                                onChange={handleInputChange}
-                            />
-                        </p>
-                   
-                  
+
+                    <p>
+                        Phone:{" "}
+                        <input
+                            type="text"
+                            name="phone"
+                            placeholder={store.patient?.phone}
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+
+
+                    <p>
+                        Emergency Contact:{" "}
+                        <input
+                            type="text"
+                            name="emergency_contact"
+                            placeholder={store.patient?.emergency_contact}
+                            value={formData.emergency_contact}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+
+
+                    <p>
+                        Allergies:{" "}
+                        <input
+                            type="text"
+                            name="allergies"
+                            placeholder={store.patient?.allergies}
+                            value={formData.allergies}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+
+
+                    <p>
+                        Blood Type:{" "}
+                        <input
+                            type="text"
+                            name="blood_type"
+                            placeholder={store.patient?.blood_type}
+                            value={formData.blood_type}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+
+
+                    <p>
+                        Hobbies:{" "}
+                        <input
+                            type="text"
+                            name="hobbies"
+                            placeholder={store.patient?.hobbies}
+                            value={formData.hobbies}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+
+                    <p>
+                        City:{" "}
+                        <input
+                            type="text"
+                            name="city"
+                            placeholder={store.patient?.city}
+                            value={formData.city}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+                    <p>
+                        State:{" "}
+                        <input
+                            type="text"
+                            name="state"
+                            placeholder={store.patient?.state}
+                            value={formData.state}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+                    <p>
+                        Zipcode:{" "}
+                        <input
+                            type="text"
+                            name="zipcode"
+                            placeholder={store.patient?.zipcode}
+                            value={formData.zipcode}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+                    <p>
+                        Language:{" "}
+                        <input
+                            type="text"
+                            name="language"
+                            placeholder={store.patient?.language}
+                            value={formData.language}
+                            onChange={handleInputChange}
+                        />
+                    </p>
+
+
 
                     <div className="d-flex justify-content-end">
                         <button className="btn btn-secondary" onClick={() => handleDiscard()}>
@@ -189,6 +244,10 @@ export const UserProfile = ({refresh}) => {
                     {store.patient?.allergies && <p>Allergies: {store.patient.allergies}</p>}
                     {store.patient?.blood_type && <p>Blood Type: {store.patient.blood_type}</p>}
                     {store.patient?.hobbies && <p>Hobbies: {store.patient.hobbies}</p>}
+                    {store.patient?.city && <p>City: {store.patient.city}</p>}
+                    {store.patient?.state && <p>State: {store.patient.state}</p>}
+                    {store.patient?.zipcode && <p>Zipcode: {store.patient.zipcode}</p>}
+                    {store.patient?.language && <p>Language: {store.patient.language}</p>}
                     {store.patient?.is_active !== undefined && (
                         <p>Active: {store.patient.is_active ? "Yes" : "No"}</p>
                     )}
@@ -200,3 +259,4 @@ export const UserProfile = ({refresh}) => {
         </div>
     );
 };
+

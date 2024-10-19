@@ -27,8 +27,12 @@ def signup_user():
     date_of_birth = data.get('date_of_birth')  
     email = data.get('email')
     password = data.get('password')
-    if not name or not date_of_birth or not email or not password:
-        return jsonify({'error': 'Name, Date of Birth, Email, and Password are required'}), 400
+    city = data.get('city')
+    state = data.get('state')
+    zipcode = data.get('zipcode')
+    language = data.get('language')
+    if not name or not date_of_birth or not email or not password or not city or not state or not zipcode or not language:
+        return jsonify({'error': 'Name, Date of Birth, Email, Password, City, State, Zipcode and Language are required'}), 400
 
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
@@ -38,6 +42,10 @@ def signup_user():
         date_of_birth=date_of_birth,
         email=email,
         password=password,
+        city = city,
+        state = state,
+        zipcode = zipcode,
+        language = language,
         # is_active=True 
     )
 
@@ -108,6 +116,10 @@ def edit_user():
     user.hobbies = data.get('hobbies', user.hobbies)
     user.is_active = data.get('is_active', user.is_active)
     user.is_current = data.get('is_current', user.is_current)
+    user.city = data.get('city', user.city)
+    user.state = data.get('state', user.state)
+    user.zipcode = data.get('zipcode', user.zipcode)
+    user.language = data.get('language', user.language)
 
     try:
         # Commit the changes to the database
