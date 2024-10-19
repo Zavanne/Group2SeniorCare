@@ -112,7 +112,11 @@ export const PatientSignUp = () => {
 									onChange={handleChange}
 									className='form-control'
 									style={{ fontSize: "1.5rem" }}
+									pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 								/>
+								{/* <small className='form-text text-muted'>
+									Please enter a valid email address.
+								</small> */}
 							</div>
 						</div>
 						<div className='form-group mb-4 row'>
@@ -148,9 +152,44 @@ export const PatientSignUp = () => {
 									style={{ fontSize: "1.5rem" }}
 								>
 									<option value=''>Select City</option>
-									<option value='city1'>City 1</option>
-									<option value='city2'>City 2</option>
-									<option value='city3'>City 3</option>
+									<option value='New York'>New York</option>
+									<option value='Los Angeles'>Los Angeles</option>
+									<option value='Chicago'>Chicago</option>
+									<option value='Houston'>Houston</option>
+									<option value='Phoenix'>Phoenix</option>
+									<option value='Philadelphia'>Philadelphia</option>
+									<option value='San Antonio'>San Antonio</option>
+									<option value='San Diego'>San Diego</option>
+									<option value='Dallas'>Dallas</option>
+									<option value='San Jose'>San Jose</option>
+									<option value='Austin'>Austin</option>
+									<option value='Jacksonville'>Jacksonville</option>
+									<option value='San Francisco'>San Francisco</option>
+									<option value='Indianapolis'>Indianapolis</option>
+									<option value='Columbus'>Columbus</option>
+									<option value='Fort Worth'>Fort Worth</option>
+									<option value='Charlotte'>Charlotte</option>
+									<option value='Memphis'>Memphis</option>
+									<option value='Boston'>Boston</option>
+									<option value='Baltimore'>Baltimore</option>
+									<option value='Detroit'>Detroit</option>
+									<option value='El Paso'>El Paso</option>
+									<option value='Seattle'>Seattle</option>
+									<option value='Denver'>Denver</option>
+									<option value='Washington D.C.'>Washington D.C.</option>
+									<option value='Nashville'>Nashville</option>
+									<option value='Portland'>Portland</option>
+									<option value='Oklahoma City'>Oklahoma City</option>
+									<option value='Las Vegas'>Las Vegas</option>
+									<option value='Louisville'>Louisville</option>
+									<option value='Milwaukee'>Milwaukee</option>
+									<option value='Albuquerque'>Albuquerque</option>
+									<option value='Tucson'>Tucson</option>
+									<option value='Fresno'>Fresno</option>
+									<option value='Sacramento'>Sacramento</option>
+									<option value='Kansas City'>Kansas City</option>
+									<option value='Long Beach'>Long Beach</option>
+									<option value='Mesa'>Mesa</option>
 								</select>
 							</div>
 						</div>
