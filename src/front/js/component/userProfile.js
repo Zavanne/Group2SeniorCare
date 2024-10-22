@@ -248,83 +248,192 @@ export const UserProfile = ({ refresh }) => {
 
                 </div>
             ) : (
-                <div className="card-1 p-6" style={{ width: "100%", borderRadius: "0", minWidth: "50rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
-                    <div className="d-flex justify-content-end">
-                        <button className="btn" onClick={() => setEditMode(!editMode)}>
-                            <i className="fa-solid fa-user-pen"></i>
-                        </button>
-                    </div>
+                <div>
+                    <div className="d-flex">
+                        <div className="card-1 " style={{ width: "100%", borderRadius: "0", minWidth: "25rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
+                            <div className="d-flex justify-content-end">
+                                <button className="btn" onClick={() => setEditMode(!editMode)}>
+                                    <i className="fa-solid fa-user-pen"></i>
+                                </button>
+                            </div>
 
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Name</label>
-                                <p>{store.patient?.name}</p>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Name</label>
+                                        <p>{store.patient?.name}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Date of Birth</label>
+                                        <p>{store.patient?.date_of_birth}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Phone</label>
+                                        <p>{store.patient?.phone}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Emergency Contact</label>
+                                        <p>{store.patient?.emergency_contact}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Allergies</label>
+                                        <p>{store.patient?.allergies}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Blood Type</label>
+                                        <p>{store.patient?.blood_type}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Hobbies</label>
+                                        <p>{store.patient?.hobbies}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>City</label>
+                                        <p>{store.patient?.city}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label>Date of Birth</label>
-                                <p>{store.patient?.date_of_birth}</p>
-                            </div>
-                            <div className="form-group">
-                                <label>Phone</label>
-                                <p>{store.patient?.phone}</p>
-                            </div>
-                            <div className="form-group">
-                                <label>Emergency Contact</label>
-                                <p>{store.patient?.emergency_contact}</p>
+
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>State</label>
+                                        <p>{store.patient?.state}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Zipcode</label>
+                                        <p>{store.patient?.zipcode}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Language</label>
+                                        <p>{store.patient?.language}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Active</label>
+                                        <p>{store.patient?.is_active ? "Yes" : "No"}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Currently Employed</label>
+                                        <p>{store.patient?.is_current ? "Yes" : "No"}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Allergies</label>
-                                <p>{store.patient?.allergies}</p>
-                            </div>
-                            <div className="form-group">
-                                <label>Blood Type</label>
-                                <p>{store.patient?.blood_type}</p>
-                            </div>
-                            <div className="form-group">
-                                <label>Hobbies</label>
-                                <p>{store.patient?.hobbies}</p>
-                            </div>
-                            <div className="form-group">
-                                <label>City</label>
-                                <p>{store.patient?.city}</p>
+
+                        <div className="card-1  p-5" style={{ width: "100%", borderRadius: "0", minWidth: "93rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
+					<h1 style={{ color: '#0f4c81', textTransform: 'uppercase', fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}></h1>
+                            <h2> Health Updates</h2>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Created At</label>
+                                        <p>{store.patient?.most_recent_health_update?.created_at}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Updated At</label>
+                                        <p>{store.patient?.most_recent_health_update?.updated_at}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Status</label>
+                                        <p>{store.patient?.most_recent_health_update?.status}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Description</label>
+                                        <p>{store.patient?.most_recent_health_update?.description}</p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div className="d-flex">
+                        <div className="card-1 " style={{ width: "100%", borderRadius: "0", minWidth: "25rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
+                            <div className="d-flex justify-content-end">
+                                <button className="btn" onClick={() => setEditMode(!editMode)}>
+                                    <i className="fa-solid fa-user-pen"></i>
+                                </button>
+                            </div>
 
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>State</label>
-                                <p>{store.patient?.state}</p>
+                            <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Name</label>
+                                        <p>{store.patient?.name}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Date of Birth</label>
+                                        <p>{store.patient?.date_of_birth}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Phone</label>
+                                        <p>{store.patient?.phone}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Emergency Contact</label>
+                                        <p>{store.patient?.emergency_contact}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Allergies</label>
+                                        <p>{store.patient?.allergies}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Blood Type</label>
+                                        <p>{store.patient?.blood_type}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Hobbies</label>
+                                        <p>{store.patient?.hobbies}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>City</label>
+                                        <p>{store.patient?.city}</p>
+                                    </div>
+                                </div>
                             </div>
-                            <div className="form-group">
-                                <label>Zipcode</label>
-                                <p>{store.patient?.zipcode}</p>
-                            </div>
-                            <div className="form-group">
-                                <label>Language</label>
-                                <p>{store.patient?.language}</p>
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Active</label>
-                                <p>{store.patient?.is_active ? "Yes" : "No"}</p>
-                            </div>
-                            <div className="form-group">
-                                <label>Currently Employed</label>
-                                <p>{store.patient?.is_current ? "Yes" : "No"}</p>
-                            </div>
+
+                            {/* <div className="row">
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>State</label>
+                                        <p>{store.patient?.state}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Zipcode</label>
+                                        <p>{store.patient?.zipcode}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Language</label>
+                                        <p>{store.patient?.language}</p>
+                                    </div>
+                                </div>
+                                <div className="col-md-6">
+                                    <div className="form-group">
+                                        <label>Active</label>
+                                        <p>{store.patient?.is_active ? "Yes" : "No"}</p>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Currently Employed</label>
+                                        <p>{store.patient?.is_current ? "Yes" : "No"}</p>
+                                    </div>
+                                </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
+
+                
             )}
         </div>
     );
 };
+
 
 
 
