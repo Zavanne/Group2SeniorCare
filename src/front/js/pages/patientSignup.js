@@ -1,3 +1,4 @@
+import backgroundImage from "../../img/marisa-howenstine-nFsOlSE9Mn8-unsplash.jpg";
 import React, { useState, useContext } from 'react';
 import { Context } from '../store/appContext';
 import { useNavigate } from 'react-router-dom';
@@ -40,28 +41,24 @@ export const PatientSignUp = () => {
 	};
 
 	return (
-	
-		
 		<div
 			style={{
-				backgroundImage: `url("https://images.unsplash.com/photo-1610899881397-7891fad5a1e8?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`,
-				backgroundSize: 'cover',
-				backgroundPosition: 'center',
+				backgroundColor: 'white',
 				height: '100vh',
 				display: 'flex',
-				justifyContent: 'center',
+				justifyContent: 'flex-start',
 				alignItems: 'center'
-			}}
-
+			}}>
+			<div style={{ position: 'absolute', bottom: 10, left: 10, color: '#ccc', fontSize: '0.8rem' }}>
+			Photo by <a href="https://unsplash.com/@marisahowenstine?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marisa Howenstine</a> on <a href="https://unsplash.com/photos/mens-white-crew-neck-t-shirt-nFsOlSE9Mn8?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+  
+			</div>
 			
-			
-		>
-			<div className='container' style={{ marginLeft: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
-
-				{/* Form Section */}
+			<div className="container" style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
 				<div className="card-1 p-5" style={{ width: "100%", borderRadius: "0", minWidth: "60rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
 					<h1 style={{ color: '#0f4c81', textTransform: 'uppercase', fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}>New Patient Signup</h1>
 					<form onSubmit={handleSubmit} style={{ width: "100%" }}>
+						{/* Form groups */}
 						<div className='form-group mb-4 row'>
 							<label htmlFor='name' className='col-4 col-form-label'>
 								Name
@@ -114,9 +111,6 @@ export const PatientSignUp = () => {
 									style={{ fontSize: "1.5rem" }}
 									pattern='^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
 								/>
-								{/* <small className='form-text text-muted'>
-									Please enter a valid email address.
-								</small> */}
 							</div>
 						</div>
 						<div className='form-group mb-4 row'>
@@ -137,6 +131,7 @@ export const PatientSignUp = () => {
 								/>
 							</div>
 						</div>
+						{/* City and State selections */}
 						<div className='form-group mb-4 row'>
 							<label htmlFor='city' className='col-4 col-form-label'>
 								City
@@ -279,6 +274,7 @@ export const PatientSignUp = () => {
 								/>
 							</div>
 						</div>
+						{/* Language selection */}
 						<div className='form-group mb-4 row'>
 							<label htmlFor='language' className='col-4 col-form-label'>
 								Language
@@ -329,9 +325,21 @@ export const PatientSignUp = () => {
 						<button type='submit' className='btn btn-primary w-100' style={{ fontSize: "1.5rem" }}>Sign Up</button>
 					</form>
 				</div>
-
 			</div>
+			<img
+				src={backgroundImage}
+				alt="Decorative"
+				style={{
+					width: '70%',
+					height: '100vh',
+					// margin: '3rem'
+				}}
+			/>
 		</div>
+		
+		
+
+
 	);
 };
 
