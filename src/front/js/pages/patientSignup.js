@@ -330,7 +330,7 @@ export const PatientSignUp = () => {
 				src={backgroundImage}
 				alt="Decorative"
 				style={{
-					width: '70%',
+					width: '40%',
 					height: '100vh',
 					// margin: '3rem'
 				}}
