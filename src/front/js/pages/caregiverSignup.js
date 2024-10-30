@@ -16,7 +16,7 @@ export const SignUp = () => {
 		password: "",
 		phone: "",
 		location: "",
-		experience: "",
+		experience: 2,
 		qualifications: "",
 		availability: "",
 		location: "",
@@ -26,6 +26,10 @@ export const SignUp = () => {
 
 	// Handle form input changes
 	const handleChange = (e) => {
+
+		// console.log("target id: " + e.target.id)
+		// console.log("target value: " + e.target.value)
+
 		setFormData({
 			...formData,
 			[e.target.id]: e.target.value
@@ -37,7 +41,7 @@ export const SignUp = () => {
 		e.preventDefault();
 		// Call the action to send form data (e.g., to the backend)
 
-		const success = actions.caregiverSignup(formData); // Example action
+		const success = actions.caregiverSignup(formData); // Example action\
 		console.log("Form submitted", formData);
 		if (success) {
 			navigate("/caregiver-login");

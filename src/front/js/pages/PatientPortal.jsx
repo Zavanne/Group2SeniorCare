@@ -6,6 +6,7 @@ import { Context } from "../store/appContext";
 // import { faTrash, faCheck, faUndo, faMapMarkerAlt } from '@fortawesome/free-solid-svg-icons'; // Import the icons you need
 import { useNavigate } from "react-router-dom";
 import { UserProfile } from "../component/userProfile";
+import { CancelAppointmentModal } from "../component/cancelAppointmentModal";
 
 export const PatientPortal = () => {
   const { store, actions } = useContext(Context);
@@ -22,6 +23,7 @@ export const PatientPortal = () => {
           console.log("fetching appointments");
           await actions.getAppointments();
           setAcceptedAppointments(store.getPatientAppointments);
+          console.log(store.getPatientAppointments + "patient appointmnets ___+++")
         } catch (error) {
           console.error("Failed to fetch appointments:", error);
         }
@@ -37,6 +39,18 @@ export const PatientPortal = () => {
 
     fetchUserProfile()
   }, []);
+
+  const cancelAppointment = async (appointmentId) => {
+    console.log(appointmentId + "AppointmentD!!!!!")
+    let success = await actions.patientCancelAppointment(appointmentId);
+    if (success) {
+      fetchUserProfile()
+    } else {
+      alert(
+        "An error occurred while attempting to cancel this appointment! Please try again later."
+      );
+    }
+  };
 
   console.log("appointments in store", store.getPatientAppointments);
 
@@ -166,7 +180,10 @@ export const PatientPortal = () => {
 
                     {/* Actions */}
                     <div className="d-flex justify-content-between align-items-center mt-3 px-5">
-                      <button className="btn btn-danger">Cancel</button>
+                      <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#cancelAppointmentModal">
+                        Cancel Appointment
+                      </button>
+                      <CancelAppointmentModal appointment={appointment} handleCancellation={cancelAppointment} />
                       <button className="btn btn-outline-secondary">Reschedule</button>
                     </div>
 
