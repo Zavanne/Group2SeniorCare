@@ -12,6 +12,7 @@ from pytz import UTC
 from api.decorators import caregiver_required, patient_required
 
 
+
 api = Blueprint('api', __name__)
 
 # # Allow CORS requests to this API
@@ -366,20 +367,15 @@ def request_caregiver():
 @caregiver_required()
 def handle_reply():
     caregiver = Caregiver.query.filter_by(id = get_jwt_identity()).first()
-    patient_id=request.get_json().get("patientId")
     reply = request.get_json().get("reply")
     request_id = request.get_json().get("requestId")
-    patient = User.query.filter_by(id=patient_id).first()
-
     if caregiver is None:
         return jsonify({'msg': 'Caregiver with your id does not exist'}), 404
-    if patient is None:
-        return jsonify("Patient not found"), 404
     if None in [reply,patient_id]:
         return jsonify("Please provide the patient's id and a reply to the request")
     
     if reply == "deny":
-        request_to_delete = UserRequestCaregiver.query.filter_by(id=request_id).first()
+        request_to_delete = UserRequestCaregiver.query.filter_by(id=request_id, caregiver_id=caregiver.id).first()
         if request_to_delete is None:
             return jsonify("Request does not exist"), 404
         db.session.delete(request_to_delete)
@@ -404,6 +400,18 @@ def get_appointments():
     return jsonify([userRequestCaregiver.serialize() for userRequestCaregiver in userRequestCaregivers]), 200
 
 
+@api.route('/patient/cancel-appointment/<int:id>', methods=['DELETE'])
+@patient_required()
+def handle_patient_cancellation(id):
+    appointmentToCancel = UserRequestCaregiver.query.filter_by(id = id).first()
+    # request_id = request.get_json().get("requestId")
+    if appointmentToCancel is None:
+        return jsonify({'msg': 'Appointment does not exist.'}), 404
+
+
+    db.session.delete(appointmentToCancel)
+    db.session.commit()
+    return jsonify({'message': "request deleted successfully."}), 200
 
     
 

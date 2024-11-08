@@ -3,6 +3,7 @@ import "./CaregiverPortal.css";
 import { Context } from "../store/appContext";
 import { CaregiverProfile } from "../component/caregiverProfile";
 import { useNavigate } from "react-router-dom";
+import { CancelAppointmentModal } from "../component/cancelAppointmentModal";
 
 
 export const CaregiverPortal = () => {
@@ -31,7 +32,9 @@ export const CaregiverPortal = () => {
     }
   }, []); // Added 'actions' to the dependency array
 
-  const handleReply = async (patientId, requestId, reply) => {
+  const handleReply = async (patientId, requestId, answer) => {
+
+    let reply = answer == "deny" || answer == "cancel" ? "deny" : "accept" ;
     let success = await actions.replyRequest(patientId, requestId, reply);
     if (success) {
       getCaregiverInfo();
@@ -41,7 +44,6 @@ export const CaregiverPortal = () => {
       );
     }
   };
-
   // Function to format date without seconds
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -355,18 +357,10 @@ export const CaregiverPortal = () => {
                                     Status: {item.request_status}
                                   </li>
                                 </ul>
-                                <button
-                                  onClick={() => {
-                                    handleReply(
-                                      item.patient.id,
-                                      item.request_id,
-                                      "deny"
-                                    );
-                                  }}
-                                  className="btn btn-danger m-1"
-                                >
+                                <button type="button" class="btn btn-danger m-1" data-bs-toggle="modal" data-bs-target="#cancelAppointmentModal">
                                   Cancel Appointment
                                 </button>
+                                <CancelAppointmentModal item={item} handleCancellation={handleReply}/>
                               </div>
                             </div>
                           </div>

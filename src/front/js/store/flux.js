@@ -93,6 +93,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			patientCancelAppointment:async(requestId)=>{
+				let options = {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + sessionStorage.getItem("token")
+					},
+				};
+				try {
+					let response = await fetch(process.env.BACKEND_URL + `/api/patient/cancel-appointment/${requestId}`, options);
+
+					if (response.status !== 200) {
+						console.log("Failed to delete to request", response.status);
+						return false;
+					}
+					let data = await response.json();
+					console.log("Request sent.", data);
+					return true;
+				} catch (error) {
+					console.log("Error deleting request", error);
+					return false;
+				}
+			},
 			// Get appointments without patient id
 			getAppointments: async () => {
 				let options = {
@@ -214,6 +237,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			caregiverSignup: async (caregiverdata) => {
+
+				console.log("Experience flux:" + caregiverdata.experience)
+				
 				const options = {
 					method: "POST",
 					headers: {
