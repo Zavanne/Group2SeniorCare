@@ -47,12 +47,12 @@ export const SignUp = () => {
 				justifyContent: 'center',
 				alignItems: 'center'
 			}}>
-		
-		<div style={{ position: 'absolute', bottom: 10, left: 10, color: '#ccc', fontSize: '0.8rem' }}>
-		Photo by <a href="https://unsplash.com/@bermixstudio?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Bermix Studio</a> on <a href="https://unsplash.com/photos/a-phone-with-a-stethoscope-on-top-of-it-l8uCymHXI-g?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-  
-		</div>
-		
+
+			<div style={{ position: 'absolute', bottom: 10, left: 10, color: '#ccc', fontSize: '0.8rem' }}>
+				Photo by <a href="https://unsplash.com/@bermixstudio?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Bermix Studio</a> on <a href="https://unsplash.com/photos/a-phone-with-a-stethoscope-on-top-of-it-l8uCymHXI-g?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
+			</div>
+
 			<div className='container' style={{ marginLeft: 0, display: "flex", justifyContent: "center", alignItems: "center" }}>
 				<div className="card-1 p-5" style={{ width: "100%", borderRadius: "0", minWidth: "60rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)", marginLeft: "150rem" }}>
 					<h1 style={{ color: '#0f4c81', textTransform: 'uppercase', fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}>Become a Caregiver</h1>

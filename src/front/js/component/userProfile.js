@@ -17,23 +17,22 @@ export const UserProfile = ({ refresh }) => {
         state: store.patient?.state || "",
         zipcode: store.patient?.zipcode || "",
         language: store.patient?.language || "",
-
+        is_active: store.patient?.is_active || false,
+        is_current: store.patient?.is_current || false,
     });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData({ ...formData, [name]: value });
+        setFormData(prev => ({ ...prev, [name]: value }));
     };
 
     const handleSave = () => {
-
-        // Trigger an action to save the updated patient data
         actions.updatePatientProfile(formData);
-        setEditMode(false); // Exit edit mode
+        setEditMode(false);
     };
 
     const handleDiscard = () => {
-        setEditMode(false)
+        setEditMode(false);
         setFormData({
             name: store.patient?.name || "",
             date_of_birth: store.patient?.date_of_birth || "",
@@ -49,10 +48,8 @@ export const UserProfile = ({ refresh }) => {
             language: store.patient?.language || "",
             is_active: store.patient?.is_active || false,
             is_current: store.patient?.is_current || false,
-
-        })
-
-    }
+        });
+    };
 
     useEffect(() => {
         setFormData({
@@ -70,372 +67,185 @@ export const UserProfile = ({ refresh }) => {
             language: store.patient?.language || "",
             is_active: store.patient?.is_active || false,
             is_current: store.patient?.is_current || false,
+        });
+    }, [refresh, store.patient]);
 
-        })
+    const renderFormField = (label, name, type = "text", icon) => (
+        <div className="form-group mb-4 profile-field">
+            <label htmlFor={name} className="form-label text-muted mb-1 small">
+                {icon && <i className={`fa-solid ${icon} me-2`}></i>}
+                {label}
+            </label>
+            <input
+                type={type}
+                name={name}
+                id={name}
+                aria-label={label}
+                value={formData[name]}
+                onChange={handleInputChange}
+                className={`form-control form-control-lg border-0 bg-light ${!editMode ? 'readonly-input' : ''}`}
+                disabled={!editMode}
+                placeholder={store.patient?.[name]}
+            />
+        </div>
+    );
 
-    }, [refresh])
     return (
-        <div>
-            
-            {editMode ? (
-                <div>
-
-
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Name</label>
-                                <input
-                                    type="text"
-                                    name="name"
-                                    placeholder={store.patient?.name}
-                                    value={formData.name}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Date of Birth</label>
-                                <input
-                                    type="date"
-                                    name="date_of_birth"
-                                    placeholder={store.patient?.date_of_birth}
-                                    value={formData.date_of_birth}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Email</label>
-                                <input
-                                    type="email"
-                                    name="email"
-                                    placeholder={store.patient?.email}
-                                    value={formData.email}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Phone</label>
-                                <input
-                                    type="text"
-                                    name="phone"
-                                    placeholder={store.patient?.phone}
-                                    value={formData.phone}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Emergency Contact</label>
-                                <input
-                                    type="text"
-                                    name="emergency_contact"
-                                    placeholder={store.patient?.emergency_contact}
-                                    value={formData.emergency_contact}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Allergies</label>
-                                <input
-                                    type="text"
-                                    name="allergies"
-                                    placeholder={store.patient?.allergies}
-                                    value={formData.allergies}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Blood Type</label>
-                                <input
-                                    type="text"
-                                    name="blood_type"
-                                    placeholder={store.patient?.blood_type}
-                                    value={formData.blood_type}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                            <div className="form-group">
-                                <label>Hobbies</label>
-                                <input
-                                    type="text"
-                                    name="hobbies"
-                                    placeholder={store.patient?.hobbies}
-                                    value={formData.hobbies}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                        </div>
+        <div className="container py-5">
+            <div className="profile-card bg-white rounded-3 shadow-sm p-4">
+                <div className="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 className="h3 mb-1 fw-bold text-primary">Patient Profile</h2>
+                        <p className="text-muted mb-0">Manage your personal information</p>
                     </div>
-
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>City</label>
-                                <input
-                                    type="text"
-                                    name="city"
-                                    placeholder={store.patient?.city}
-                                    value={formData.city}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>State</label>
-                                <input
-                                    type="text"
-                                    name="state"
-                                    placeholder={store.patient?.state}
-                                    value={formData.state}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-                    <div className="row">
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Zipcode</label>
-                                <input
-                                    type="text"
-                                    name="zipcode"
-                                    placeholder={store.patient?.zipcode}
-                                    value={formData.zipcode}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                        </div>
-                        <div className="col-md-6">
-                            <div className="form-group">
-                                <label>Language</label>
-                                <input
-                                    type="text"
-                                    name="language"
-                                    placeholder={store.patient?.language}
-                                    value={formData.language}
-                                    onChange={handleInputChange}
-                                    className="form-control"
-                                />
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div className="d-flex justify-content-end">
-                        <button className="btn btn-secondary" onClick={() => handleDiscard()}>
-                            Discard Changes
-                        </button>
-                        <button className="btn btn-primary" onClick={handleSave}>
-                            Save
-                        </button>
-                    </div>
-
-
+                    <button 
+                        className={`btn ${editMode ? 'btn-light' : 'btn-primary'} rounded-circle p-3`}
+                        onClick={() => setEditMode(!editMode)}
+                        aria-label={editMode ? "Cancel editing" : "Edit profile"}
+                    >
+                        <i className={`fa-solid ${editMode ? "fa-times" : "fa-user-pen"}`}></i>
+                    </button>
                 </div>
-            ) : (
-                <div>
-                    <div className="d-flex">
-                        <div className="card-1 " style={{ width: "100%", borderRadius: "0", minWidth: "25rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
-                            <div className="d-flex justify-content-end">
-                                <button className="btn" onClick={() => setEditMode(!editMode)}>
-                                    <i className="fa-solid fa-user-pen"></i>
-                                </button>
-                            </div>
-
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Name</label>
-                                        <p>{store.patient?.name}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Date of Birth</label>
-                                        <p>{store.patient?.date_of_birth}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phone</label>
-                                        <p>{store.patient?.phone}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Emergency Contact</label>
-                                        <p>{store.patient?.emergency_contact}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Allergies</label>
-                                        <p>{store.patient?.allergies}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Blood Type</label>
-                                        <p>{store.patient?.blood_type}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Hobbies</label>
-                                        <p>{store.patient?.hobbies}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>City</label>
-                                        <p>{store.patient?.city}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>State</label>
-                                        <p>{store.patient?.state}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Zipcode</label>
-                                        <p>{store.patient?.zipcode}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Language</label>
-                                        <p>{store.patient?.language}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Active</label>
-                                        <p>{store.patient?.is_active ? "Yes" : "No"}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Currently Employed</label>
-                                        <p>{store.patient?.is_current ? "Yes" : "No"}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div className="card-1  p-5" style={{ width: "100%", borderRadius: "0", minWidth: "93rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
-					<h1 style={{ color: '#0f4c81', textTransform: 'uppercase', fontSize: '2rem', marginBottom: '2rem', textAlign: 'center' }}></h1>
-                            <h2> Health Updates</h2>
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Created At</label>
-                                        <p>{store.patient?.most_recent_health_update?.created_at}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Updated At</label>
-                                        <p>{store.patient?.most_recent_health_update?.updated_at}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Status</label>
-                                        <p>{store.patient?.most_recent_health_update?.status}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Description</label>
-                                        <p>{store.patient?.most_recent_health_update?.description}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="d-flex">
-                        <div className="card-1 " style={{ width: "100%", borderRadius: "0", minWidth: "25rem", fontSize: "1.5rem", backgroundColor: "rgba(255, 255, 255, 0.5)" }}>
-                            <div className="d-flex justify-content-end">
-                                <button className="btn" onClick={() => setEditMode(!editMode)}>
-                                    <i className="fa-solid fa-user-pen"></i>
-                                </button>
-                            </div>
-
-                            <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Name</label>
-                                        <p>{store.patient?.name}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Date of Birth</label>
-                                        <p>{store.patient?.date_of_birth}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Phone</label>
-                                        <p>{store.patient?.phone}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Emergency Contact</label>
-                                        <p>{store.patient?.emergency_contact}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Allergies</label>
-                                        <p>{store.patient?.allergies}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Blood Type</label>
-                                        <p>{store.patient?.blood_type}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Hobbies</label>
-                                        <p>{store.patient?.hobbies}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>City</label>
-                                        <p>{store.patient?.city}</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            {/* <div className="row">
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>State</label>
-                                        <p>{store.patient?.state}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Zipcode</label>
-                                        <p>{store.patient?.zipcode}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Language</label>
-                                        <p>{store.patient?.language}</p>
-                                    </div>
-                                </div>
-                                <div className="col-md-6">
-                                    <div className="form-group">
-                                        <label>Active</label>
-                                        <p>{store.patient?.is_active ? "Yes" : "No"}</p>
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Currently Employed</label>
-                                        <p>{store.patient?.is_current ? "Yes" : "No"}</p>
-                                    </div>
-                                </div>
-                            </div> */}
-                        </div>
-                    </div>
-                </div>
-
                 
-            )}
+                <div className="profile-content">
+                    <form onSubmit={(e) => e.preventDefault()}>
+                        <div className="row g-4">
+                            <div className="col-md-6">
+                                <div className="profile-section p-4 bg-light rounded-3 h-100">
+                                    <h3 className="h5 mb-4 text-primary">Personal Information</h3>
+                                    {renderFormField("Full Name", "name", "text", "fa-user")}
+                                    {renderFormField("Date of Birth", "date_of_birth", "date", "fa-calendar")}
+                                    {renderFormField("Email Address", "email", "email", "fa-envelope")}
+                                    {renderFormField("Phone Number", "phone", "tel", "fa-phone")}
+                                    {renderFormField("Emergency Contact", "emergency_contact", "text", "fa-ambulance")}
+                                </div>
+                            </div>
+                            <div className="col-md-6">
+                                <div className="profile-section p-4 bg-light rounded-3 h-100">
+                                    <h3 className="h5 mb-4 text-primary">Medical Information</h3>
+                                    {renderFormField("Allergies", "allergies", "text", "fa-virus")}
+                                    {renderFormField("Blood Type", "blood_type", "text", "fa-droplet")}
+                                    {renderFormField("Primary Language", "language", "text", "fa-language")}
+                                </div>
+                            </div>
+                            <div className="col-12">
+                                <div className="profile-section p-4 bg-light rounded-3">
+                                    <h3 className="h5 mb-4 text-primary">Additional Information</h3>
+                                    <div className="row">
+                                        <div className="col-md-6">
+                                            {renderFormField("City", "city", "text", "fa-city")}
+                                            {renderFormField("State", "state", "text", "fa-map")}
+                                        </div>
+                                        <div className="col-md-6">
+                                            {renderFormField("Zipcode", "zipcode", "text", "fa-location-dot")}
+                                            {renderFormField("Hobbies & Interests", "hobbies", "text", "fa-heart")}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {editMode && (
+                            <div className="action-buttons position-sticky bottom-0 bg-white py-3 mt-4 border-top">
+                                <div className="d-flex justify-content-end gap-3">
+                                    <button 
+                                        className="btn btn-light btn-lg px-4"
+                                        onClick={handleDiscard}
+                                        type="button"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button 
+                                        className="btn btn-primary btn-lg px-4"
+                                        onClick={handleSave}
+                                        type="submit"
+                                    >
+                                        Save Changes
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+                    </form>
+                </div>
+            </div>
+
+            <style>
+                {`
+                    .profile-card {
+                        border: none;
+                        transition: all 0.3s ease;
+                    }
+
+                    .profile-section {
+                        transition: all 0.3s ease;
+                    }
+
+                    .profile-section:hover {
+                        background-color: #f8f9fa !important;
+                    }
+
+                    .form-control {
+                        transition: all 0.3s ease;
+                        border-radius: 0.5rem;
+                        padding: 0.75rem 1rem;
+                    }
+
+                    .form-control:focus {
+                        box-shadow: none;
+                        border-color: var(--bs-primary);
+                        background-color: white !important;
+                    }
+
+                    .readonly-input {
+                        background-color: transparent !important;
+                        border: none;
+                        padding-left: 0;
+                        color: var(--bs-body-color);
+                        cursor: default;
+                    }
+
+                    .readonly-input:focus {
+                        background-color: transparent !important;
+                    }
+
+                    .profile-field {
+                        position: relative;
+                    }
+
+                    .btn {
+                        transition: all 0.3s ease;
+                    }
+
+                    .btn-primary {
+                        background-color: var(--bs-primary);
+                        border: none;
+                    }
+
+                    .btn-primary:hover {
+                        transform: translateY(-1px);
+                        box-shadow: 0 4px 12px rgba(var(--bs-primary-rgb), 0.2);
+                    }
+
+                    .action-buttons {
+                        box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.05);
+                    }
+
+                    .form-label {
+                        font-weight: 500;
+                        letter-spacing: 0.5px;
+                    }
+
+                    .text-primary {
+                        color: var(--bs-primary) !important;
+                    }
+
+                    @media (max-width: 768px) {
+                        .profile-section {
+                            margin-bottom: 1rem;
+                        }
+                    }
+                `}
+            </style>
         </div>
     );
 };
-
-
-
-
-
-
