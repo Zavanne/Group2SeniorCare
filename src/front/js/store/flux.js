@@ -12,7 +12,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 		},
 		actions: {
 			checkSessionStorage: () => {
-				if(sessionStorage.getItem("token")){
+				if (sessionStorage.getItem("token")) {
 					return true
 				}
 				return false
@@ -93,6 +93,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+			patientCancelAppointment:async(requestId)=>{
+				let options = {
+					method: "DELETE",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + sessionStorage.getItem("token")
+					},
+				};
+				try {
+					let response = await fetch(process.env.BACKEND_URL + `/api/patient/cancel-appointment/${requestId}`, options);
+
+					if (response.status !== 200) {
+						console.log("Failed to delete to request", response.status);
+						return false;
+					}
+					let data = await response.json();
+					console.log("Request sent.", data);
+					return true;
+				} catch (error) {
+					console.log("Error deleting request", error);
+					return false;
+				}
+			},
 			// Get appointments without patient id
 			getAppointments: async () => {
 				let options = {
@@ -117,7 +140,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-		
+
 			updateSuccessMessage: (newMessage) => {
 				setStore({ successMessage: newMessage })
 			},
@@ -214,6 +237,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			caregiverSignup: async (caregiverdata) => {
+
+				console.log("Experience flux:" + caregiverdata.experience)
+				
 				const options = {
 					method: "POST",
 					headers: {
@@ -257,12 +283,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({
-						name: patientdata.name,
-						date_of_birth: patientdata.date_of_birth,
-						email: patientdata.email,
-						password: patientdata.password,
-					}),
+					body: JSON.stringify(patientdata),
 				};
 
 				try {
@@ -298,7 +319,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				console.log(data);
 				setStore({ patient: data.user });
 				return true;
-				
+
 
 			},
 
@@ -364,8 +385,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			recipeApi: async () => {
 				let options = {
 					headers: {
-							'x-rapidapi-key': `${process.env.RECIPES_API}`,
-							'x-rapidapi-host': 'tasty.p.rapidapi.com'
+						'x-rapidapi-key': `${process.env.RECIPES_API}`,
+						'x-rapidapi-host': 'tasty.p.rapidapi.com'
 					}
 				};
 				// let response = await fetch(`${process.env.BACKEND_URL}/api/user`, options);
@@ -375,10 +396,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 				let data = await response.json();
-				console.log(data,"recipes");
+				console.log(data, "recipes");
 				setStore({ recipes: data.results });
 				return true;
-				
+
 
 			},
 

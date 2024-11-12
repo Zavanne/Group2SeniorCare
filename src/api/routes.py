@@ -12,6 +12,7 @@ from pytz import UTC
 from api.decorators import caregiver_required, patient_required
 
 
+
 api = Blueprint('api', __name__)
 
 # # Allow CORS requests to this API
@@ -27,8 +28,12 @@ def signup_user():
     date_of_birth = data.get('date_of_birth')  
     email = data.get('email')
     password = data.get('password')
-    if not name or not date_of_birth or not email or not password:
-        return jsonify({'error': 'Name, Date of Birth, Email, and Password are required'}), 400
+    city = data.get('city')
+    state = data.get('state')
+    zipcode = data.get('zipcode')
+    language = data.get('language')
+    if not name or not date_of_birth or not email or not password or not city or not state or not zipcode or not language:
+        return jsonify({'error': 'Name, Date of Birth, Email, Password, City, State, Zipcode and Language are required'}), 400
 
     existing_user = User.query.filter_by(email=email).first()
     if existing_user:
@@ -38,6 +43,10 @@ def signup_user():
         date_of_birth=date_of_birth,
         email=email,
         password=password,
+        city = city,
+        state = state,
+        zipcode = zipcode,
+        language = language,
         # is_active=True 
     )
 
@@ -108,6 +117,10 @@ def edit_user():
     user.hobbies = data.get('hobbies', user.hobbies)
     user.is_active = data.get('is_active', user.is_active)
     user.is_current = data.get('is_current', user.is_current)
+    user.city = data.get('city', user.city)
+    user.state = data.get('state', user.state)
+    user.zipcode = data.get('zipcode', user.zipcode)
+    user.language = data.get('language', user.language)
 
     try:
         # Commit the changes to the database
@@ -354,20 +367,15 @@ def request_caregiver():
 @caregiver_required()
 def handle_reply():
     caregiver = Caregiver.query.filter_by(id = get_jwt_identity()).first()
-    patient_id=request.get_json().get("patientId")
     reply = request.get_json().get("reply")
     request_id = request.get_json().get("requestId")
-    patient = User.query.filter_by(id=patient_id).first()
-
     if caregiver is None:
         return jsonify({'msg': 'Caregiver with your id does not exist'}), 404
-    if patient is None:
-        return jsonify("Patient not found"), 404
     if None in [reply,patient_id]:
         return jsonify("Please provide the patient's id and a reply to the request")
     
     if reply == "deny":
-        request_to_delete = UserRequestCaregiver.query.filter_by(id=request_id).first()
+        request_to_delete = UserRequestCaregiver.query.filter_by(id=request_id, caregiver_id=caregiver.id).first()
         if request_to_delete is None:
             return jsonify("Request does not exist"), 404
         db.session.delete(request_to_delete)
@@ -392,6 +400,18 @@ def get_appointments():
     return jsonify([userRequestCaregiver.serialize() for userRequestCaregiver in userRequestCaregivers]), 200
 
 
+@api.route('/patient/cancel-appointment/<int:id>', methods=['DELETE'])
+@patient_required()
+def handle_patient_cancellation(id):
+    appointmentToCancel = UserRequestCaregiver.query.filter_by(id = id).first()
+    # request_id = request.get_json().get("requestId")
+    if appointmentToCancel is None:
+        return jsonify({'msg': 'Appointment does not exist.'}), 404
+
+
+    db.session.delete(appointmentToCancel)
+    db.session.commit()
+    return jsonify({'message': "request deleted successfully."}), 200
 
     
 
