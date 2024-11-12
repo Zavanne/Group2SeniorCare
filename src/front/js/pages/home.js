@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import { Testimonial } from "../component/testimonal";
 import RecipesApi from "../component/recipesApi";
+import image from "../../img/image.png";
 
 const Home = () => {
     const { store, actions } = useContext(Context);
@@ -38,34 +39,24 @@ const Home = () => {
 
     return (
         <>
-            {/* Header */}
-            <header style={{ position: "sticky", top: 0, backgroundColor: "#f9f9f9", zIndex: 1000, padding: "10px 0" }}>
-                <div className="container d-flex justify-content-between align-items-center">
-                    <h2 style={{ color: "#333", fontFamily: "Montserrat" }}>Caregiver Connect</h2>
-                    <div className="d-flex">
-                        <Link to="/signup-caregiver">
-                            <button className="cta-button-1">Become A Caregiver</button>
-                        </Link>
-                        <Link to="/signup-patient" className="ml-2">
-                            <button className="cta-button-1">Join As A Patient</button>
-                        </Link>
-                    </div>
-                </div>
-            </header>
-
             {/* Hero Section */}
             <section className="hero" style={{
-                height: "80vh",
-                backgroundImage: 'url("https://example.com/hero-bg.jpg")',
+                height: "65vh",
+                width: "100%",
+                backgroundImage: 'url("https://images.unsplash.com/photo-1508963493744-76fce69379c0?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")',
                 backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                backgroundPosition: "center",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 color: "#fff",
                 textAlign: "center",
-                position: "relative"
+                position: "relative",
+                margin: 0
             }}>
-                <div style={{ backgroundColor: "rgba(0, 0, 0, 0.4)", padding: "40px", borderRadius: "10px" }}>
+
+                <div style={{ position: "absolute", bottom: 100, right: 350, backgroundColor: "rgba(0, 0, 0, 0.4)", padding: "40px", borderRadius: "10px" }}>
                     <h1>Find a Caregiver in 24 Hours or Less</h1>
                     <input
                         type="text"
@@ -88,6 +79,25 @@ const Home = () => {
                         Find a Caregiver
                     </button>
                 </div>
+                <div style={{ position: "absolute", top: 20, left: 20, padding: 0, borderRadius: "10px" }}>
+                    <Link to="/signup-caregiver" className="mx-auto" style={{ marginRight: "15px" }}>
+                        <button className="cta-button-lg" style={{ padding: "15px 40px", fontSize: "1.5rem" }}>Become A Caregiver</button>
+                    </Link>
+                    <Link to="/signup-patient" className="mx-auto" style={{ marginLeft: "10px" }}>
+                        <button className="cta-button-lg" style={{ padding: "15px 40px", fontSize: "1.5rem" }}>Join As A Patient</button>
+                    </Link>
+                </div>
+                <img src={image} alt="Here to make a difference" style={{
+                    position: "absolute",
+                    top: 50,
+                    right: 25,
+                    width: "700px",
+                    height: "auto",
+                    borderRadius: "10px",
+                }} />
+                <p style={{ position: "absolute", top: "50%", right: "60%", transform: "translate(-50%, -50%)", fontSize: "2.5rem", fontStyle: "italic" }}>Welcome to a world that cares - John Dow</p>
+                
+
             </section>
 
             {/* Cards Section */}
@@ -162,12 +172,12 @@ const Home = () => {
                         <h2 className="text-4xl font-bold mb-8">Ready to Transform Care?</h2>
                         <p className="text-xl mb-12 ">Join thousands who have already discovered a better way to care</p>
                         <div className="flex flex-col sm:flex-row justify-center gap-4">
-                        <Link to="/signup-caregiver">
-                            <button className="cta-button-1">Become A Caregiver</button>
-                        </Link>
-                        <Link to="/signup-patient" className="ml-2">
-                            <button className="cta-button-1">Join As A Patient</button>
-                        </Link>
+                            <Link to="/signup-caregiver">
+                                <button className="cta-button-1">Become A Caregiver</button>
+                            </Link>
+                            <Link to="/signup-patient" className="ml-2">
+                                <button className="cta-button-1">Join As A Patient</button>
+                            </Link>
                         </div>
                     </div>
                 </div>
